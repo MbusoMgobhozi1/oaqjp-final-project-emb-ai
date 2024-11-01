@@ -1,16 +1,21 @@
+"""Emotion Detector Application, Detects Emotion On Input"""
+
+import logging
+
 from flask import Flask, request, render_template, jsonify
 from EmotionDetection import emotion_detector
-import logging
 
 log = logging.getLogger()
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """Renders the template of the application"""
     return render_template('index.html')
 
 @app.route("/emotionDetector", methods=["GET", "POST"])
 def emotion_detection():
+    """Emotion Detector Based On Input Test"""
     text_to_analyze = request.values.get('textToAnalyze', '')
     log.info("Received text to analyze: %s", text_to_analyze)
 
@@ -21,6 +26,9 @@ def emotion_detection():
     joy = response.get("joy")
     sadness = response.get("sadness")
     dominant_emotion = response.get("dominant_emotion")
+
+    if not dominant_emotion:
+        return jsonify({'message': 'Invalid text! Please try again!'})
 
     return f"For the given statement, the system response is " \
        f"'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, " \
