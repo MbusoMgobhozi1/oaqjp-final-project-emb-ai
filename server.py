@@ -20,7 +20,7 @@ def emotion_detection():
     fear = response.get("fear")
     joy = response.get("joy")
     sadness = response.get("sadness")
-    dominant_emotion = response.get("dominant_emotion')
+    dominant_emotion = response.get("dominant_emotion")
 
     return f"For the given statement, the system response is " \
        f"'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, " \
