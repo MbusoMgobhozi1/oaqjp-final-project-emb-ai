@@ -14,11 +14,18 @@ def emotion_detection():
     text_to_analyze = request.values.get('textToAnalyze', '')
     log.info("Received text to analyze: %s", text_to_analyze)
 
-    result = emotion_detector(text_to_analyze)
-    dominant_emotion = result.get("dominant_emotion")
-    result.pop("dominant_emotion")
+    response = emotion_detector(text_to_analyze)
+    anger = response.get("anger")
+    disgust = response.get("disgust")
+    fear = response.get("fear")
+    joy = response.get("joy")
+    sadness = response.get("sadness")
+    dominant_emotion = response.get("dominant_emotion')
 
-    return f"For the given statement, the system response is {result}. The dominant emotion is {dominant_emotion}"
+    return f"For the given statement, the system response is " \
+       f"'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, " \
+       f"'joy': {joy}, and 'sadness': {sadness}.\nThe dominant emotion is {dominant_emotion}."
+
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, host="0.0.0.0")
